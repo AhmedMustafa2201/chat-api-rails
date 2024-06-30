@@ -6,6 +6,7 @@ services:
       - .:/usr/src/app
     ports:
       - "3000:3000"
+    command: bash -c "rm -f tmp/pids/server.pid && /usr/local/bin/wait-for-mysql.sh db -- ./bin/rails server"
     environment:
       - DB_HOST=db
       - DB_USERNAME=user
@@ -16,8 +17,8 @@ services:
       - db
 
   db:
-    image: mysql:latest
-    container_name: chat_local_db
+    image: mysql:8.0
+    container_name: chat_local_db 
     ports:
       - "3306:3306"
     environment:
