@@ -6,7 +6,7 @@ services:
       - .:/usr/src/app
     ports:
       - "3000:3000"
-    command: bash -c "rm -f tmp/pids/server.pid && /usr/local/bin/wait-for-mysql.sh db -- ./bin/rails server"
+    command: bash -c "rm -f tmp/pids/server.pid && /usr/local/bin/wait-for-mysql.sh db -- ./bin/rails server -b 0.0.0.0"
     environment:
       - DB_HOST=db
       - DB_USERNAME=user

@@ -68,4 +68,9 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.hosts = [
+    "localhost:3000",
+    "vigilant-space-winner-7xpx5qv7vrfrvv-3000.app.github.dev", # For debugging inside codespace
+  ]
 end
