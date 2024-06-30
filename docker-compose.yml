@@ -1,28 +1,32 @@
 services:
   api:
     build: .
-    container_name: pinkFlamingosContainerApi
+    container_name: chat_local_api
     volumes:
       - .:/usr/src/app
     ports:
       - "3000:3000"
     environment:
       - DB_HOST=db
-      - DB_USERNAME=root
-      - DB_PASSWORD=superSecretPassword
+      - DB_USERNAME=user
+      - DB_NAME=chat_api_rails_development
+      - DB_PASSWORD=password
       - HISTFILE=/usr/src/app/log/.bash_history
     depends_on:
       - db
+
   db:
     image: mysql:latest
-    container_name: pinkFlamingosContainerDb
+    container_name: chat_local_db
     ports:
       - "3306:3306"
     environment:
+      - MYSQL_PASSWORD=password
+      - MYSQL_USER=user
       - MYSQL_ROOT_PASSWORD=superSecretPassword
-      - MYSQL_DATABASE=pinkFlamingosDatabase
+      - MYSQL_DATABASE=chat_api_rails_development
     volumes:
-      - pg_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
 
 volumes:
-  pg_data:
+  mysql_data:
