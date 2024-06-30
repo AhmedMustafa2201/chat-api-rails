@@ -8,7 +8,7 @@ cmd="$@"
 
 until mysql -h "$host" -u user -ppassword -e "SELECT 1" > /dev/null 2>&1; do
   echo "Waiting for MySQL..."
-  sleep 1
+  sleep 3
 done
 
 >&2 echo "MySQL is up - executing command"
