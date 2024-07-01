@@ -1,6 +1,17 @@
 class Message < ApplicationRecord
   belongs_to :chat
+  before_create :set_message_number
 
+  validates :content, presence: true
+
+
+  private
+
+  def set_message_number
+    max_number = chat.messages.maximum(:number) || 0
+    self.number = max_number + 1
+  end
+  
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 

@@ -9,6 +9,7 @@ class Chat < ApplicationRecord
   private
 
   def set_chat_number
-    self.number = application.chats.count + 1
+    max_number = application.chats.maximum(:number) || 0
+    self.number = max_number + 1
   end
 end
