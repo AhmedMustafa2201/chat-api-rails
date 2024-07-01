@@ -1,11 +1,20 @@
 class Message < ApplicationRecord
   belongs_to :chat
 
-  before_create :set_message_number
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
-  private
+  settings do
+    mappings dynamic: false do
+      indexes :content, type: :text, analyzer: 'english'
+    end
+  end
 
-  def set_message_number
-    self.number = chat.messages.count + 1
+  def as_indexed_json(options = {})
+    as_json(only: [:content])
   end
 end
+
+# Reindex all existing records
+Message.__elasticsearch__.create_index!
+Message.import

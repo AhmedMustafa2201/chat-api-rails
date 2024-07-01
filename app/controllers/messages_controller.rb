@@ -9,6 +9,18 @@ class MessagesController < ApplicationController
         render json: message.errors, status: :unprocessable_entity
       end
     end
+
+    def search
+      query = params[:query]
+      results = @chat.messages.search(query: {
+        multi_match: {
+          query: query,
+          fields: [:content]
+        }
+      }).records
+  
+      render json: results
+    end
   
     private
   
