@@ -3,16 +3,12 @@ services:
     build: .
     container_name: chat_local_api
     volumes:
-      - .:/usr/src/app
+      - .:/rails
     ports:
       - "3000:3000"
     command: bash -c "rm -f tmp/pids/server.pid && /usr/local/bin/wait-for-mysql.sh db -- ./bin/rails server -b 0.0.0.0"
-    environment:
-      - DB_HOST=db
-      - DB_USERNAME=user
-      - DB_NAME=chat_api_rails_development
-      - DB_PASSWORD=password
-      - HISTFILE=/usr/src/app/log/.bash_history
+    env_file:
+      - .envs/.api
     depends_on:
       - db
 
@@ -21,11 +17,8 @@ services:
     container_name: chat_local_db 
     ports:
       - "3306:3306"
-    environment:
-      - MYSQL_PASSWORD=password
-      - MYSQL_USER=user
-      - MYSQL_ROOT_PASSWORD=superSecretPassword
-      - MYSQL_DATABASE=chat_api_rails_development
+    env_file:
+      - .envs/.api
     volumes:
       - mysql_data:/var/lib/mysql
 

@@ -1,0 +1,5 @@
+DB_HOST=db
+DB_USERNAME=user
+DB_NAME=chat_api_rails_development
+DB_PASSWORD=password
+HISTFILE=/usr/src/app/log/.bash_history
