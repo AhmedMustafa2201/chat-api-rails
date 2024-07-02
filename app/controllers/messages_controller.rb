@@ -3,12 +3,8 @@ class MessagesController < ApplicationController
   before_action :set_chat
 
   def create
-    message = @chat.messages.build(message_params)
-    if message.save
-      render json: { number: message.number }, status: :created
-    else
-      render json: message.errors, status: :unprocessable_entity
-    end
+    MessageCreationJob.perform_async(@application.token, @chat.number, params[:content])
+    render json: { status: 'Message creation queued' }, status: :accepted
   end
 
   def search
@@ -33,8 +29,8 @@ class MessagesController < ApplicationController
     @chat = @application.chats.find_by!(number: params[:chat_number])
   end
 
-  def message_params
-    params.require(:message).permit(:content)
-  end
+  # def message_params
+  #   params.require(:message).permit(:content)
+  # end
 end
   

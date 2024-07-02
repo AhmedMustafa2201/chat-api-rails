@@ -1,19 +1,15 @@
 class ChatsController < ApplicationController
-    before_action :set_application
+    # before_action :set_application
   
     def create
-      chat = @application.chats.build
-      if chat.save
-        render json: { number: chat.number }, status: :created
-      else
-        render json: chat.errors, status: :unprocessable_entity
-      end
+      ChatCreationJob.perform_async(params[:application_token])
+      render json: { status: 'Chat creation queued' }, status: :accepted
     end
   
     private
   
-    def set_application
-      @application = Application.find_by!(token: params[:application_token])
-    end
+    # def set_application
+    #   @application = Application.find_by!(token: params[:application_token])
+    # end
 end
   
