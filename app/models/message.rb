@@ -1,5 +1,5 @@
 class Message < ApplicationRecord
-  belongs_to :chat, counter_cache: :messages_count
+  belongs_to :chat
   before_create :set_message_number
 
   validates :content, presence: true
