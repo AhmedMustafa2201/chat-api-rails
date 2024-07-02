@@ -27,8 +27,6 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
-COPY wait-for-mysql.sh /usr/local/bin/
-
 # Copy application code
 COPY . .
 

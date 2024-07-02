@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_060702) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "chats_count"
+    t.integer "chats_count", default: 0, null: false
     t.index ["token"], name: "index_applications_on_token"
   end
 
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_060702) do
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "messages_count"
+    t.integer "messages_count", default: 0, null: false
     t.index ["application_id"], name: "index_chats_on_application_id"
     t.index ["number"], name: "index_chats_on_number"
   end
