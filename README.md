@@ -1,13 +1,11 @@
-# README
+# chat-api-rails
 
-This README would normally document whatever steps are necessary to get the
+A simple chat api built in rails
 application up and running.
 
-Things you may want to cover:
+* Ruby version: 7.1.3.4
 
-* Ruby version
-
-* System dependencies
+* System dependencies: docker, docker-compose "optional"
 
 * Configuration
 

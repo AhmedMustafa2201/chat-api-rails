@@ -48,6 +48,32 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  
+  redis:
+    image: redis:6.2
+    container_name: chat_local_redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  
+  sidekiq:
+    build: .
+    container_name: chat_local_sidekiq
+    command: bundle exec sidekiq
+    volumes:
+      - .:/myapp
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: mysql2://user:password@db/myapp_production
+    healthcheck:
+      test: ["CMD-SHELL", "bundle exec sidekiqctl status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   mysql_data:
