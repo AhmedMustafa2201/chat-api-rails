@@ -10,6 +10,28 @@ You can find a very useful commands on the `Makefile` "for development purposes 
 
 To navigate to Swagger, you can locally visit http://localhost:3000/api-docs
 
+## Sample API invocations:
+### Application
+```
+curl -X POST -H "Content-Type: application/json" -d '{"name": "app1"}' http://localhost:3000/applications
+```
+
+### Chat
+```
+curl -X POST -H "Content-Type: application/json" http://localhost:3000/applications/{APP_TOKEN}/chats
+```
+
+### Message
+Creation
+```
+curl -X POST -H "Content-Type: application/json" -d '{"content": "Hi John!"}' http://localhost:3000/applications/{APP_TOKEN}/chats/{CHAT_NUIMBER}/messages
+```
+Searching
+Creation
+```
+curl -X GET -H "Content-Type: application/json" http://localhost:3000/applications/{APP_TOKEN}/chats/{CHAT_NUIMBER}/messages/search/?query={message_str}
+```
+
 on `config/environments/development.rb`, you'll find the following hosts list. That's because i'm running my application inside one of my private codespaces. You can remove it if you want
 ```ruby
   config.hosts = [
