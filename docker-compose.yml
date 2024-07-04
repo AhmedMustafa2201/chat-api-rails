@@ -14,6 +14,8 @@ services:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
+      sidekiq:
+        condition: service_healthy
 
   db:
     image: mysql:5.6.45
@@ -67,6 +69,11 @@ services:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f sidekiq || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   mysql_data:
