@@ -1,8 +1,9 @@
 # chat-api-rails
 
 A simple chat api built on top of rails7.
-
-To run the app, type `docker-compose up`
+## Installation
+- type `docker-compose up`
+- after the `api` service is up, you can run `make migrate` into another terminal window
 
 I've wrote unit test cases for `ApplicationsController` as a quick sample. To run it, you can execute `make unittest_controllers`
 
